@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package lunaconf.domain;
+
+import "akkaserverless/annotations.proto";
+
+option java_outer_classname = "StepDomain";
+
+option (akkaserverless.file).event_sourced_entity = {
+    name: "StepEntity"
+    entity_type: "steps"
+    state: "StepState"
+    events: ["StepAdded","StepActivated","StepPoweredOn","StepPoweredOff"]
+};
+
+message StepState {
+    string step_id = 1;
+    string customer_id = 2;
+    bool power_on = 3;
+}
+
+message StepAdded {
+    string step_id = 1 [(akkaserverless.field).entity_key = true];
+}
+
+message StepActivated {
+    string step_id = 1 [(akkaserverless.field).entity_key = true];
+    string customer_id = 2;
+}
+
+message StepPoweredOn {
+    string step_id = 1 [(akkaserverless.field).entity_key = true];
+}
+
+message StepPoweredOff {
+    string step_id = 1 [(akkaserverless.field).entity_key = true];
+}

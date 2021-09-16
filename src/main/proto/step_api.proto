@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package lunaconf.api;
+
+option java_outer_classname = "StepApi";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "akkaserverless/annotations.proto";
+
+message AddStepRequest{
+  string step_id = 1 [(akkaserverless.field).entity_key = true];
+}
+message Step{
+  string step_id = 1;
+  string customer_id = 2;
+  bool power_on = 3;
+}
+
+message ActivateStepRequest{
+  string step_id = 1 [(akkaserverless.field).entity_key = true];
+  string customer_id = 2;
+}
+message PowerOnStepRequest{
+  string step_id = 1 [(akkaserverless.field).entity_key = true];
+}
+message PowerOffStepRequest{
+  string step_id = 1 [(akkaserverless.field).entity_key = true];
+}
+
+message GetStepRequest{
+  string step_id = 1 [(akkaserverless.field).entity_key = true];
+}
+
+service StepService {
+
+  option (akkaserverless.service) = {
+    type: SERVICE_TYPE_ENTITY
+    component: "lunaconf.domain.StepEntity"
+  };
+  rpc AddStep(AddStepRequest) returns (Step) {
+    option (google.api.http) = {
+      post: "/step"
+      body: "*"
+    };
+  }
+  rpc ActivateStep(ActivateStepRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/step/{step_id}/activate"
+      body: "*"
+    };
+  }
+  rpc PowerOnStep(PowerOnStepRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/step/{step_id}/power-on"
+      body: "*"
+    };
+  }
+  rpc PowerOffStep(PowerOffStepRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/step/{step_id}/power-off"
+      body: "*"
+    };
+  }
+
+  rpc GetStep(GetStepRequest) returns (Step){
+    option (google.api.http) = {
+      get: "/step/{step_id}"
+    };
+  };
+
+}
+
+
+

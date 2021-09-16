@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+package lunaconf.view;
+
+option java_outer_classname = "StepViewModel";
+
+import "step_domain.proto";
+import "akkaserverless/annotations.proto";
+import "google/protobuf/any.proto";
+import "google/api/annotations.proto";
+
+
+message ByActiveStatusRequest{
+  string active = 1;
+}
+
+message StepByActiveStatusView {
+  string step_id = 1;
+  string customer_id = 2;
+  string active = 3;
+}
+
+service StepByActiveStatus{
+
+  option (akkaserverless.service) = {
+    type: SERVICE_TYPE_VIEW
+  };
+  rpc ProcessStepAdded(domain.StepAdded) returns (StepByActiveStatusView) {
+    option (akkaserverless.method).eventing.in = {
+      event_sourced_entity: "steps"
+    };
+    option (akkaserverless.method).view.update = {
+      table: "step_by_active_status"
+      transform_updates: true
+    };
+  }
+
+  rpc ProcessStepActivated(domain.StepActivated) returns (StepByActiveStatusView) {
+    option (akkaserverless.method).eventing.in = {
+      event_sourced_entity: "steps"
+    };
+    option (akkaserverless.method).view.update = {
+      table: "step_by_active_status"
+      transform_updates: true
+    };
+  }
+
+  rpc IgnoreOtherEvents(google.protobuf.Any) returns (StepByActiveStatusView) {
+    option (akkaserverless.method).eventing.in = {
+      event_sourced_entity: "steps"
+    };
+    option (akkaserverless.method).view.update = {
+      table: "step_by_active_status"
+      transform_updates: true
+    };
+  };
+
+  rpc GetStepsByActiveStatus(ByActiveStatusRequest) returns (stream StepByActiveStatusView) {
+    option (akkaserverless.method).view.query = {
+      query: "SELECT * FROM step_by_active_status WHERE active = :active"
+    };
+    option (google.api.http) = {
+      post: "/step/by-status",
+      body: "*"
+    };
+  }
+
+}
+
+message ByCustomerRequest{
+  string customer_id = 1;
+}
+
+message StepByCustomerViewList{
+  repeated StepByCustomerView steps = 1;
+}
+
+message StepByCustomerView {
+  string step_id = 1;
+  string customer_id = 2;
+  bool power_on = 3;
+}
+
+service StepByCustomer{
+
+  option (akkaserverless.service) = {
+    type: SERVICE_TYPE_VIEW
+  };
+
+  rpc ProcessStepActivated(domain.StepActivated) returns (StepByCustomerView) {
+    option (akkaserverless.method).eventing.in = {
+      event_sourced_entity: "steps"
+    };
+    option (akkaserverless.method).view.update = {
+      table: "step_by_customer"
+      transform_updates: true
+    };
+  }
+
+  rpc ProcessStepPoweredOn(domain.StepPoweredOn) returns (StepByCustomerView) {
+    option (akkaserverless.method).eventing.in = {
+      event_sourced_entity: "steps"
+    };
+    option (akkaserverless.method).view.update = {
+      table: "step_by_customer"
+      transform_updates: true
+    };
+  }
+
+  rpc ProcessStepPoweredOff(domain.StepPoweredOff) returns (StepByCustomerView) {
+    option (akkaserverless.method).eventing.in = {
+      event_sourced_entity: "steps"
+    };
+    option (akkaserverless.method).view.update = {
+      table: "step_by_customer"
+      transform_updates: true
+    };
+  }
+
+  rpc IgnoreOtherEvents(google.protobuf.Any) returns (StepByCustomerView) {
+    option (akkaserverless.method).eventing.in = {
+      event_sourced_entity: "steps"
+    };
+    option (akkaserverless.method).view.update = {
+      table: "step_by_customer"
+      transform_updates: true
+    };
+  };
+
+  rpc GetStepsByCustomer(ByCustomerRequest) returns (StepByCustomerViewList) {
+    option (akkaserverless.method).view.query = {
+      query: "SELECT * AS steps FROM step_by_customer WHERE customer_id = :customer_id"
+    };
+    option (google.api.http) = {
+      post: "/step/by-customer",
+      body: "*"
+    };
+  }
+
+}
