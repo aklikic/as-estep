@@ -16,70 +16,86 @@ IDE / editor
 mvn archetype:generate -DarchetypeGroupId=com.akkaserverless -DarchetypeArtifactId=akkaserverless-maven-archetype-event-sourced-entity -DarchetypeVersion=0.7.0
 ```
 
-```
-Define value for property 'groupId': lunaconf
-Define value for property 'artifactId': estep
-Define value for property 'version' 1.0-SNAPSHOT:
+
+Define value for property 'groupId': `lunaconf` <br>
+Define value for property 'artifactId': `estep` <br>
+Define value for property 'version' 1.0-SNAPSHOT: <br>
 Define value for property 'package' lunaconf:
-```
+
 
 ## Import generated project in your IDE/editor
 
 Delete existing proto files from `src/main/proto` folder:
-```
-counter_api.proto
-counter_domain.proto
-```
+
+`counter_api.proto` <br>
+`counter_domain.proto`
+
 
 
 ## Define API data structure and endpoints (GRPC)
 
-Download file [step_api.proto](https://github.com/aklikic/as-estep/src/main/proto/step_api.proto) to your `src/main/proto` folder
+Download file [step_api.proto](https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/proto/step_api.proto) to your `src/main/proto` folder
+```
+curl https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/proto/step_api.proto --output src/main/proto/step_api.proto 
+```
 
 ## Define persistence (domain) data structure  (GRPC)
 
-Download file [step_domain.proto](https://github.com/aklikic/as-estep/src/main/proto/step_domain.proto) to your `src/main/proto` folder
+Download file [step_domain.proto](https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/proto/step_domain.proto) to your `src/main/proto` folder
+```
+curl https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/proto/step_domain.proto --output src/main/proto/step_domain.proto 
+```
 
 ## Define View (read model) data structure  (GRPC)
 
-Download file [step_view.proto](https://github.com/aklikic/as-estep/src/main/proto/step_view.proto) to your `src/main/proto` folder
+Download file [step_view.proto](https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/proto/step_view.proto) to your `src/main/proto` folder
+```
+curl https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/proto/step_view.proto --output src/main/proto/step_view.proto 
+```
 
 ## Code generation
 ```
 mvn compile
 ```
 Result:
-```
+`
 [INFO] BUILD SUCCESS
+`
+
 ```
-Additionally, required because 0.7.0 code generation does not build all required resources:
-```
-mvn verify -P
+mvn test-compile
 ```
 Result:
-```
-[INFO] BUILD FAILURE
-```
-Note: this is ok because it runs integrations test that are not yet implemented
+`
+[INFO] BUILD SUCCESS
+`<br><br>
 
-`Re-sync` your project in `IDE/editor`!
+<b>Note: `Re-sync` your project in `IDE/editor`!</b>
 
 ## Code business logic (or download)
 
 `StepEntity`:<br>
-Download file [StepEntity.java](https://github.com/aklikic/as-estep/src/main/java/lunaconf/domain/StepEntity.java) to your `src/main/java/lunaconf/domain` folder
-
+Download file [StepEntity.java](https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/java/lunaconf/domain/StepEntity.java) to your `src/main/java/lunaconf/domain` folder
+```
+curl https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/java/lunaconf/domain/StepEntity.java --output src/main/java/lunaconf/domain/StepEntity.java
+```
 `StepByActiveStatusView`:<br>
-Download file [StepByActiveStatusView.java](https://github.com/aklikic/as-estep/src/main/java/lunaconf/domain/StepByActiveStatusView.java) to your `src/main/java/lunaconf/domain` folder
-
+Download file [StepByActiveStatusView.java](https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/java/lunaconf/view/StepByActiveStatusView.java) to your `src/main/java/lunaconf/domain` folder
+```
+curl https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/java/lunaconf/view/StepByActiveStatusView.java --output src/main/java/lunaconf/view/StepByActiveStatusView.java
+```
 `StepByCustomerView`:<br>
-Download file [StepByCustomerView.java](https://github.com/aklikic/as-estep/src/main/java/lunaconf/domain/StepByCustomerView.java) to your `src/main/java/lunaconf/domain` folder
-
+Download file [StepByCustomerView.java](https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/java/lunaconf/view/StepByCustomerView.java) to your `src/main/java/lunaconf/domain` folder
+```
+curl https://raw.githubusercontent.com/aklikic/as-estep/main/src/main/java/lunaconf/view/StepByCustomerView.java --output src/main/java/lunaconf/view/StepByCustomerView.java
+```
 ## Code unit tests (or Download)
 
 `StepEntityTest`:<br>
-Download file [StepEntityTest.java](https://github.com/aklikic/as-estep/src/test/java/lunaconf/domain/StepEntityTest.java) to your `src/test/java/lunaconf/domain` folder
-
+Download file [StepEntityTest.java](https://raw.githubusercontent.com/aklikic/as-estep/main/src/test/java/lunaconf/domain/StepEntityTest.java) to your `src/test/java/lunaconf/domain` folder
+```
+curl https://raw.githubusercontent.com/aklikic/as-estep/main/src/test/java/lunaconf/domain/StepEntityTest.java --output src/test/java/lunaconf/domain/StepEntityTest.java
+```
 ## Execute unit test
 
 ```
@@ -88,16 +104,18 @@ mvn test
 
 Result:
 
-```
+`
 [INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0
-```
+`
 
 
 ## Code integration tests (or Download)
 
 `StepEntityIntegrationTest`:<br>
-Download file [StepEntityIntegrationTest.java](https://github.com/aklikic/as-estep/src/it/java/lunaconf/domain/StepEntityIntegrationTest.java) to your `src/it/java/lunaconf/domain` folder
-
+Download file [StepEntityIntegrationTest.java](https://raw.githubusercontent.com/aklikic/as-estep/main/src/it/java/lunaconf/domain/StepEntityIntegrationTest.java) to your `src/it/java/lunaconf/domain` folder
+```
+curl https://raw.githubusercontent.com/aklikic/as-estep/main/src/it/java/lunaconf/domain/StepEntityIntegrationTest.java --output src/it/java/lunaconf/domain/StepEntityIntegrationTest.java
+```
 ## Execute integration test
 
 ```
@@ -106,14 +124,18 @@ mvn verify -Pit
 
 Result:
 
-```
+`
 [INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0
-```
+`
 
-Note: Integration tests uses [TestContainers](https://www.testcontainers.org/) to span integration environment so it could require some time to download required containers.
-Also make sure docker is running.
+Note: <b>Integration tests uses [TestContainers](https://www.testcontainers.org/) to span integration environment so it could require some time to download required containers.
+Also make sure docker is running.</b>
 
 ## Package
+
+Note: <br>
+<b>Make sure you have updated `dockerImage` in your `pom.xml` and that your local docker is authenticated with your docker container registry</b>
+
 
 ```
 mvn package
@@ -121,9 +143,9 @@ mvn package
 
 Result:
 
-```
+`
 [INFO] BUILD SUCCESS
-```
+`
 
 ```
 docker images
@@ -133,12 +155,10 @@ Result:
 
 ```
 REPOSITORY       TAG              IMAGE ID       CREATED          SIZE
-aklikic/estep    1.0-SNAPSHOT     4aad0e4b5ff0   23 minutes ago   293MB
-aklikic/estep    latest           4aad0e4b5ff0   23 minutes ago   293MB
+my-docker-repo/estep    1.0-SNAPSHOT     4aad0e4b5ff0   23 minutes ago   293MB
+my-docker-repo/estep    latest           4aad0e4b5ff0   23 minutes ago   293MB
 
 ```
-
-Note: Make sure you have updated `dockerImage` in your `pom.xml` and that your local docker is authenticated with your docker container registry
 
 ## Register for Akka Serverless account or Login with existing account
 [Login, Register, Register via Google](https://console.akkaserverless.com/p/login)
@@ -154,9 +174,9 @@ Validate version:
 akkasls version
 ```
 Result:
-```
+`
 0.0.39
-```
+`
 
 Login (need to be logged in the Akka Serverless Console in web browser):
 ```
@@ -170,7 +190,7 @@ akkasls projects list
 Result:
 ```
   NAME    DESCRIPTION                     ID                                     OWNER
-* estep   Electric step sharing service   932d6a8d-c48f-468f-a048-fbaa80d7106e   aklikic  
+* estep   Electric step sharing service   932d6a8d-c48f-468f-a048-fbaa80d7106e   owner  
 
 ```
 
@@ -179,21 +199,22 @@ Set project:
 akkasls config set project estep
 ```
 Result:
-```
+`
 Project set to estep
-```
+`
 
 ## Deploy service
 ```
-akkasls service deploy estep aklikic/estep:1.0-SNAPSHOT
+akkasls service deploy estep my-docker-repo/estep:1.0-SNAPSHOT
 ```
 Result:
-```
+`
 Service 'estep' was successfully deployed.
+`<br>
+
+Note: <b>Check if service docker image is pulled successfully:</b>
 ```
-Check if service docker image is pulled successfully:
-```
-akkasls logs estep | grep "Successfully pulled image \"aklikic/estep:1.0-SNAPSHOT\""
+akkasls logs estep | grep "Successfully pulled image \"my-docker-repo/estep:1.0-SNAPSHOT\""
 ```
 
 List services:
@@ -201,24 +222,26 @@ List services:
 NAME    AGE   REPLICAS   STATUS   DESCRIPTION   
 estep   13m   1          Ready 
 ```
-Note: for the first deployment in a new project it could take 2-3 min for service to end in `Ready` status
+Note: <br> 
+<b>for the first deployment in a new project it could take 7 min for service to end in `Ready` status</b>
 
 ## Expose service
 ```
 akkasls services expose estep --enable-cors
 ```
 Result:
-```
+`
 Service 'estep' was successfully exposed at: somehost.akkaserverless.app
-```
+`
+<br><br>
 Get service host:
 ```
 akkasls services get estep | grep Host
 ```
 Result
-```
+`
 Host:           somehost.akkaserverless.app
-```
+`
 
 ##Try service in production
 
@@ -271,6 +294,6 @@ Result:
 akkasls services undeploy estep
 ```
 Result:
-```
+`
 Service 'estep' has successfully been deleted.
-```
+`
