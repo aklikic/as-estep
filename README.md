@@ -1,5 +1,8 @@
 # Electric step (e-step) service
 
+<span style="color:red">
+This readme is not intended for cloning the project but as a guide for building a new project and using the resources from this one
+</span>
 
 ## Prerequisite
 Java 11<br>
@@ -9,7 +12,6 @@ Docker 19.03 or higher<br>
 Container registry with public access (like Docker Hub)<br>
 cURL<br>
 IDE / editor
-
 
 ## Create kickstart maven project
 ```
